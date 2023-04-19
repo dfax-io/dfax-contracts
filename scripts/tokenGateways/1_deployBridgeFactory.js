@@ -5,8 +5,10 @@ const AnyCallProxy = {
     "bscTestnet": "0xcBd52F7E99eeFd9cD281Ea84f3D903906BB677EC",
     "goerli": "0x965f84D915a9eFa2dD81b653e3AE736555d945f4",
     "ftmTestnet": "0xfCea2c562844A7D385a7CB7d5a79cfEE0B673D99",
-    "fuji": "0x461d52769884ca6235b685ef2040f47d30c94eb5",
-    "moonbase": "0x1d7Ca62F6Af49ec66f6680b8606E634E55Ef22C1"
+    "avalancheFujiTestnet": "0x461d52769884ca6235b685ef2040f47d30c94eb5",
+    "moonbase": "0x1d7Ca62F6Af49ec66f6680b8606E634E55Ef22C1",
+    "optimisticGoerli": "0x80A16016cC4A2E6a2CACA8a4a498b1699fF0f844",
+    "arbitrumGoerli": "0x922D641a426DcFFaeF11680e5358F34d97d112E1"
 }
 
 async function main() {

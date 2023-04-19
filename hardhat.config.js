@@ -31,12 +31,20 @@ module.exports = {
       url: process.env.FTMTESTNET_RPC_PROVIDER,
       accounts: [process.env.PRIVATE_KEY]
     },
-    fuji: {
+    avalancheFujiTestnet: {
       url: process.env.AVAXTESTNET_RPC_PROVIDER,
       accounts: [process.env.PRIVATE_KEY]
     },
-    moonbase: {
+    moonbaseAlpha: {
       url: process.env.MOONBASE_RPC_PROVIDER,
+      accounts: [process.env.PRIVATE_KEY]
+    },
+    optimisticGoerli: {
+      url: process.env.OPTIMISTICGOERLI_RPC_PROVIDER,
+      accounts: [process.env.PRIVATE_KEY]
+    },
+    arbitrumGoerli: {
+      url: process.env.ARBITRUMGOERLI_RPC_PROVIDER,
       accounts: [process.env.PRIVATE_KEY]
     }
   },
@@ -44,7 +52,11 @@ module.exports = {
     apiKey: {
       goerli: process.env.ETHERSCAN_API_KEY,
       bscTestnet: process.env.BSCSCAN_API_KEY,
-      ftmTestnet: process.env.FTMSCAN_API_KEY
+      ftmTestnet: process.env.FTMSCAN_API_KEY,
+      moonbaseAlpha: process.env.MOONBASE_API_KEY,
+      avalancheFujiTestnet: process.env.FUJI_API_KEY,
+      optimisticGoerli: process.env.OPTIMISTICGOERLI_API_KEY,
+      arbitrumGoerli: process.env.ARBITRUMGOERLI_API_KEY
     }
   },
   abiExporter: [
