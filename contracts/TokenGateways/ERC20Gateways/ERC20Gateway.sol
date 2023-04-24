@@ -19,7 +19,11 @@ interface IERC20Gateway {
     ) external payable returns (uint256 swapoutSeq);
 }
 
-abstract contract ERC20Gateway is IERC20Gateway, AnyCallApp, DFaxFee {
+abstract contract ERC20Gateway is
+    IERC20Gateway,
+    AnyCallApp,
+    DFaxFee
+{
     address public token;
     mapping(uint256 => uint8) public decimals;
     uint256 public swapoutSeq;
@@ -134,7 +138,12 @@ abstract contract ERC20Gateway is IERC20Gateway, AnyCallApp, DFaxFee {
     function _anyExecute(
         uint256 fromChainID,
         bytes memory data
-    ) internal override returns (bool success, bytes memory result) {
+    )
+        internal
+        override
+        nonReentrant
+        returns (bool success, bytes memory result)
+    {
         (uint256 amount, uint8 _decimals, address receiver, ) = abi.decode(
             data,
             (uint256, uint8, address, uint256)
@@ -153,7 +162,12 @@ abstract contract ERC20Gateway is IERC20Gateway, AnyCallApp, DFaxFee {
     function _anyFallback(
         uint256 fromChainID,
         bytes memory data
-    ) internal override returns (bool success, bytes memory result) {
+    )
+        internal
+        override
+        nonReentrant
+        returns (bool success, bytes memory result)
+    {
         (uint256 amount, , address originSender, , ) = abi.decode(
             data,
             (uint256, uint8, address, address, uint256)
