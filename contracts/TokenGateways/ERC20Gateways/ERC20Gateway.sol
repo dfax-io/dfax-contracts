@@ -19,11 +19,7 @@ interface IERC20Gateway {
     ) external payable returns (uint256 swapoutSeq);
 }
 
-abstract contract ERC20Gateway is
-    IERC20Gateway,
-    AnyCallApp,
-    DFaxFee
-{
+abstract contract ERC20Gateway is IERC20Gateway, AnyCallApp, DFaxFee {
     address public token;
     mapping(uint256 => uint8) public decimals;
     uint256 public swapoutSeq;
@@ -156,7 +152,9 @@ abstract contract ERC20Gateway is
             );
         }
         success = _swapin(amount, receiver);
-        safetyControl.update(fromChainID, amount, receiver);
+        if (address(safetyControl) != address(0)) {
+            safetyControl.update(fromChainID, amount, receiver);
+        }
     }
 
     function _anyFallback(
