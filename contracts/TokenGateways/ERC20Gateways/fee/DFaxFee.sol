@@ -144,11 +144,14 @@ contract DFaxFee is ReentrancyGuard {
 
     function withdrawDFaxFee(address to, uint256 amount) public nonReentrant {
         uint index = 0;
+        bool isFeeOwner = false;
         for (uint i = 0; i < feeOwners.length; i++) {
             if (feeOwners[i] == msg.sender) {
                 index = i;
+                isFeeOwner = true;
             }
         }
+        require(isFeeOwner, "not fee owner");
         require(feeOwnerAccrued[index] >= amount, "amount exceeds fee accrued");
         feeOwnerAccrued[index] -= amount;
         (bool succ, ) = to.call{value: amount}("");
