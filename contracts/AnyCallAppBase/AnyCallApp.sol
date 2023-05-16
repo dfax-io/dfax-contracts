@@ -21,7 +21,7 @@ abstract contract AnyCallApp is AdminControl {
         _;
     }
 
-    function initAnyCallApp(address _callProxy, address _admin) public {
+    function initAnyCallApp(address _callProxy, address _admin) internal {
         require(_callProxy != address(0));
         callProxy = _callProxy;
         initAdminControl(_admin);
