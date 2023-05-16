@@ -31,7 +31,7 @@ contract BridgeERC20 is ERC20, AccessControl {
         _setupRole(DEFAULT_ADMIN_ROLE, admin);
     }
 
-    function transferAdmin(address to) public {
+    function transferAdmin(address to) public onlyRole(DEFAULT_ADMIN_ROLE) {
         _setupRole(DEFAULT_ADMIN_ROLE, to);
         renounceRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
@@ -67,17 +67,17 @@ contract BridgeERC20 is ERC20, AccessControl {
         return _decimals;
     }
 
-    function mint(address account, uint256 amount)
-        public
-        onlyRole(ROLE_MINTER)
-    {
+    function mint(
+        address account,
+        uint256 amount
+    ) public onlyRole(ROLE_MINTER) {
         _mint(account, amount);
     }
 
-    function burn(address account, uint256 amount)
-        public
-        onlyRole(ROLE_BURNER)
-    {
+    function burn(
+        address account,
+        uint256 amount
+    ) public onlyRole(ROLE_BURNER) {
         _burn(account, amount);
     }
 }
