@@ -49,7 +49,8 @@ contract ERC20Gateway_Pool is ERC20Gateway {
                 return false;
             }
             (bool succ, ) = receiver.call{value: amount}("");
-            return succ;
+            require(succ);
+            return true;
         } else {
             return
                 ITransfer(token).transferFrom(address(this), receiver, amount);
