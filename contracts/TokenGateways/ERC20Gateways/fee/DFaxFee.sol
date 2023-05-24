@@ -99,7 +99,7 @@ contract DFaxFee is ReentrancyGuard {
         _updateFeeOwner(feeOwner, weight);
     }
 
-    function _updateFeeOwner(address feeOwner, uint256 weight) public {
+    function _updateFeeOwner(address feeOwner, uint256 weight) internal {
         for (uint i = 0; i < feeOwners.length; i++) {
             if (feeOwners[i] == feeOwner) {
                 feeOwnerWeights[i] = weight;
