@@ -24,7 +24,7 @@ abstract contract ERC721Gateway is IERC721Gateway, AnyCallApp {
     address public token;
     uint256 public swapoutSeq;
 
-    function initERC20Gateway(
+    function initERC721Gateway(
         address anyCallProxy,
         address token_,
         address admin
