@@ -29,6 +29,13 @@ abstract contract ERC20Gateway is IERC20Gateway, AnyCallApp, DFaxFee {
 
     ISwapInSafetyControl public safetyControl;
 
+    bool public isWNative;
+
+    function initIsWNative(bool _isWNative) public {
+        require(!initialized);
+        isWNative = _isWNative;
+    }
+
     constructor() DFaxFee() {
         _initiator = msg.sender;
     }
@@ -120,6 +127,9 @@ abstract contract ERC20Gateway is IERC20Gateway, AnyCallApp, DFaxFee {
         );
         uint256 dFeeCharged = chargeFee(msg.sender, destChainID, amount);
         uint256 anyCallFee = msg.value - dFeeCharged;
+        if (isWNative) {
+            anyCallFee -= amount;
+        }
         _anyCall(clientPeers[destChainID], data, destChainID, anyCallFee);
         emit LogAnySwapOut(
             amount,

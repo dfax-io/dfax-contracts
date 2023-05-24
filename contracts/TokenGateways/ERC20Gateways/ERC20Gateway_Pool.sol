@@ -20,15 +20,8 @@ interface IWNative {
 }
 
 contract ERC20Gateway_Pool is ERC20Gateway {
-    bool public isWNative;
-
     function description() external pure returns (string memory) {
         return "ERC20Gateway_Pool";
-    }
-
-    function initIsWNative(bool _isWNative) public {
-        require(!initialized);
-        isWNative = _isWNative;
     }
 
     function _swapout(
@@ -39,7 +32,7 @@ contract ERC20Gateway_Pool is ERC20Gateway {
             if (msg.value < amount) {
                 return false;
             }
-            IWNative(token).deposit{value: msg.value}();
+            IWNative(token).deposit{value: amount}();
             return true;
         } else {
             return ITransfer(token).transferFrom(sender, address(this), amount);
