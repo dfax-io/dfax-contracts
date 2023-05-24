@@ -123,6 +123,7 @@ abstract contract ERC20Gateway is IERC20Gateway, AnyCallApp, DFaxFee {
             amount,
             IDecimal(token).decimals(),
             receiver,
+            msg.sender,
             swapoutSeq
         );
         uint256 dFeeCharged = chargeFee(msg.sender, destChainID, amount);
@@ -150,9 +151,9 @@ abstract contract ERC20Gateway is IERC20Gateway, AnyCallApp, DFaxFee {
         nonReentrant
         returns (bool success, bytes memory result)
     {
-        (uint256 amount, uint8 _decimals, address receiver, ) = abi.decode(
+        (uint256 amount, uint8 _decimals, address receiver, , ) = abi.decode(
             data,
-            (uint256, uint8, address, uint256)
+            (uint256, uint8, address, address, uint256)
         );
         amount = convertDecimal(amount, _decimals);
         if (address(safetyControl) != address(0)) {
