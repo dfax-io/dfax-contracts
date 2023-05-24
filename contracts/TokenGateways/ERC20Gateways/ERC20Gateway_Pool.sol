@@ -4,6 +4,8 @@ pragma solidity ^0.8.0;
 import "./ERC20Gateway.sol";
 
 interface ITransfer {
+    function transfer(address to, uint256 amount) external returns (bool);
+
     function transferFrom(
         address sender,
         address recipient,
@@ -43,7 +45,6 @@ contract ERC20Gateway_Pool is ERC20Gateway {
         uint256 amount,
         address receiver
     ) internal override returns (bool) {
-        ITransfer(token).approve(address(this), amount);
         if (isWNative) {
             try IWNative(token).withdraw(amount) {} catch {
                 return false;
@@ -52,8 +53,7 @@ contract ERC20Gateway_Pool is ERC20Gateway {
             require(succ);
             return true;
         } else {
-            return
-                ITransfer(token).transferFrom(address(this), receiver, amount);
+            return ITransfer(token).transfer(receiver, amount);
         }
     }
 
